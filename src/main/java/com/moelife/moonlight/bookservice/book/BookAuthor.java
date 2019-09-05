@@ -1,17 +1,14 @@
-package com.moelife.moonlight.bookservice.bookauthor;
+package com.moelife.moonlight.bookservice.book;
+
 
 import javax.persistence.*;
 
 import com.moelife.moonlight.bookservice.author.Author;
-import com.moelife.moonlight.bookservice.book.Book;
 import com.moelife.moonlight.bookservice.model.BaseEntity;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+@Getter(AccessLevel.PACKAGE)
+@Setter(AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 
 @Entity
@@ -22,10 +19,29 @@ public class BookAuthor extends BaseEntity {
 	@JoinColumn(name = "book_id")
 	private Book book;
 
-	@ManyToOne
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "author_id")
 	private Author author;
 
 	@Convert(converter = AuthorType.Converter.class)
 	private AuthorType authorType;
+
+	@Builder
+	BookAuthor(Book book, Author author, AuthorType authorType) {
+		this.book = book;
+		this.author = author;
+		this.authorType = authorType;
+	}
+
+	public long getId() {
+		return author.getId();
+	}
+
+	public String getName() {
+		return author.getName();
+	}
+
+	public AuthorType getType() {
+		return authorType;
+	}
 }

@@ -21,11 +21,19 @@ public interface ValueEnum {
 		@Override
 		@Enumerated
 		public Integer convertToDatabaseColumn(T attribute) {
+			if (attribute == null) {
+				return null;
+			}
+
 			return attribute.getValue();
 		}
 
 		@Override
 		public T convertToEntityAttribute(Integer dbData) {
+			if (dbData == null) {
+				return null;
+			}
+
 			return Stream.of(targetClass.getEnumConstants())
 					.filter(valueEnum -> valueEnum.getValue() == dbData)
 					.findFirst().orElseThrow(() -> new IllegalArgumentException(String.format("%s 클래스에 %d 값이 없습니다.", targetClass.getName(), dbData)));

@@ -1,14 +1,20 @@
-package com.moelife.moonlight.bookservice.bookauthor;
+package com.moelife.moonlight.bookservice.book;
 
 import com.moelife.moonlight.bookservice.model.ValueEnum;
 import lombok.Getter;
 
 @Getter
 public enum AuthorType implements ValueEnum {
-	WRITER(1000, "지은이"),
-	PAINTER(1001, "그림"),
-	TRANSLATOR(1005, "옮긴이")
-	;
+	NONE(0, "작가 타입 없음"),
+
+	ORIGIN(1000, "원작가"),
+	WRITER(1001, "지은이"),
+	STORY_WRITER(1002, "스토리 작가"),
+
+	PAINTER(1100, "그림"),
+
+	TRANSLATOR(1200, "옮긴이"),
+	COMPILER(1201, "엮은이");
 
 	private final int value;
 
@@ -21,7 +27,7 @@ public enum AuthorType implements ValueEnum {
 
 	@javax.persistence.Converter
 	public static class Converter extends ValueEnum.Converter<AuthorType> {
-		protected Converter() {
+		public Converter() {
 			super(AuthorType.class);
 		}
 	}

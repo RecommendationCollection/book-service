@@ -32,6 +32,11 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
+    compile 'org.springframework.boot:spring-boot-starter-webflux'
+    compile 'org.projectreactor:reactor-spring:1.0.1.RELEASE'
+    
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
     // cloud
     implementation 'org.springframework.cloud:spring-cloud-starter-config'
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
@@ -42,6 +47,7 @@ dependencies {
 
     // utils
     implementation 'org.apache.commons:commons-lang3:3.9'
+    implementation 'com.google.guava:guava:28.1-jre'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 

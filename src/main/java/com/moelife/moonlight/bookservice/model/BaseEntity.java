@@ -17,10 +17,6 @@ public abstract class BaseEntity implements Serializable {
 		return id;
 	}
 
-	public void setId(long id) {
-		this.id = id;
-	}
-
 	public boolean isNew() {
 		return this.id == 0;
 	}
