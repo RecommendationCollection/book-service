@@ -10,12 +10,12 @@ public class BookBuilder {
 	private Book book = new Book();
 
 	public BookBuilder isbn(String isbn) {
-		book.setIsbn(isbn);
+		book.setIsbn(isbn != null ? isbn : "");
 		return this;
 	}
 
 	public BookBuilder title(String title) {
-		book.setTitle(title);
+		book.setTitle(title != null ? title : "");
 		return this;
 	}
 
@@ -25,17 +25,17 @@ public class BookBuilder {
 	}
 
 	public BookBuilder thumbnail(String thumbnail) {
-		book.setThumbnail(thumbnail);
+		book.setThumbnail(thumbnail != null ? thumbnail : "");
 		return this;
 	}
 
 	public BookBuilder cover(String cover) {
-		book.setCover(cover);
+		book.setCover(cover != null ? cover : "");
 		return this;
 	}
 
 	public BookBuilder link(String link) {
-		book.setLink(link);
+		book.setLink(link != null ? link : "");
 		return this;
 	}
 
@@ -49,6 +49,7 @@ public class BookBuilder {
 		publishDate(information.getPublishDate());
 		thumbnail(information.getThumbnail());
 		cover(information.getCover());
+		link(information.getLink());
 
 		return this;
 	}

@@ -16,37 +16,38 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 @Getter
-@Setter(AccessLevel.PACKAGE)
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 
 @Entity
 @AttributeOverride(name = "id", column = @Column(name = "book_id"))
 public class Book extends BaseEntity {
 
-	@Column(nullable = false)
+	@Column
 	private String isbn;
 
 	@Column(nullable = false)
 	private String title;
 
-	@Column(nullable = false)
+	@Column
 	private LocalDate publishDate;
 
-	@Column(nullable = false)
+	@Column
 	private String thumbnail = "";
 
-	@Column(nullable = false)
+	@Column
 	private String cover = "";
 
 	@Column
-	@Setter(AccessLevel.PUBLIC)
 	private String link = "";
 
 	@Getter(AccessLevel.NONE)
+	@Setter(AccessLevel.PACKAGE)
 	@Cascade(CascadeType.ALL)
 	@OneToMany(mappedBy = "book", orphanRemoval = true)
 	private List<BookAuthor> bookAuthors = new ArrayList<>();
@@ -71,6 +72,20 @@ public class Book extends BaseEntity {
 				.findFirst();
 
 		bookAuthor.ifPresent(value -> bookAuthors.remove(value));
+	}
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+		if (StringUtils.isBlank(cover)) {
+			cover = thumbnail;
+		}
+	}
+
+	public void setCover(String cover) {
+		this.cover = cover;
+		if (StringUtils.isBlank(thumbnail)) {
+			thumbnail = cover;
+		}
 	}
 
 	public ImmutableList<BookAuthor> getAuthors() {

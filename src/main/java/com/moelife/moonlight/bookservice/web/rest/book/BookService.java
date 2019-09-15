@@ -31,10 +31,7 @@ public class BookService {
 	Book getFromUrl(String url) {
 		BookInformation bookInformation = bookInformationManager.getInformation(url);
 
-		Book book = findOrSaveBook(bookInformation);
-		book.setLink(url);
-
-		return book;
+		return findOrSaveBook(bookInformation);
 	}
 
 	private Book findOrSaveBook(BookInformation bookInfo) {

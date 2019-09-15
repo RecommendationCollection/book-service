@@ -31,6 +31,8 @@ public class AladinBookInformation implements BookInformation {
 
 	private SubInfo subInfo;
 
+	private String link;
+
 	private List<AuthorInformation> authorInformations = new ArrayList<>();
 
 	private static List<AuthorInformation> createAuthorInfo(String aladinAuthor) {
@@ -85,6 +87,11 @@ public class AladinBookInformation implements BookInformation {
 			this.authorInformations = createAuthorInfo(this.author);
 		}
 		return this.authorInformations;
+	}
+
+	@Override
+	public String getLink() {
+		return this.link;
 	}
 
 	@Getter
